@@ -9,7 +9,7 @@ export const formatDistanceFromNow = (dateStr) =>
     addSuffix: true,
   }).replace('about ', '');
 
-function ReservationCard({ booking }) {
+function ReservationCard({ booking, onDelete }) {
   const {
     id,
     guestId,
@@ -37,7 +37,7 @@ function ReservationCard({ booking }) {
       <div className='flex-grow px-6 py-3 flex flex-col'>
         <div className='flex items-center justify-between'>
           <h3 className='text-xl font-semibold'>
-            <div>{booking.id}</div>
+            <div hidden={false} >{booking.id}</div>
             {numNights} nights in Cabin {name}
           </h3>
           {isPast(new Date(startDate)) ? (
@@ -81,7 +81,7 @@ function ReservationCard({ booking }) {
           <PencilSquareIcon className='h-5 w-5 text-primary-600 group-hover:text-primary-800 transition-colors' />
           <span className='mt-1'>Edit</span>
         </Link>
-        <DeleteReservation bookingId={id} />
+        <DeleteReservation bookingId={id} onDelete={onDelete} />
         </>
          ) : ( null )
         }

@@ -1,9 +1,11 @@
 import Image from "next/image"
 import TextExpander from "./TextExpander"
-import { EyeSlashIcon, MapPinIcon, UsersIcon } from "@heroicons/react/24/solid"
+import { EyeSlashIcon, MapPinIcon, UsersIcon, CalendarDaysIcon } from "@heroicons/react/24/solid"
+import { getSettings } from "../_lib/data-service"
 
-export default function Cabin({ cabin }){
+export default async function Cabin({ cabin }){
     const { name, description, maxCapacity, image } = cabin
+    const settings = await getSettings()
 
     return (
         <div className="grid grid-cols-[3fr_4fr] gap-20 border border-primary-800 py-3 px-10 mb-24">
@@ -23,6 +25,13 @@ export default function Cabin({ cabin }){
             </p>
 
             <ul className="flex flex-col gap-4 mb-7">
+                <li className="flex gap-3 items-center">
+                <CalendarDaysIcon className="h-5 w-5 text-primary-600" />
+                <span className="text-lg">
+                    Min no of nights <span className="font-bold">{settings.minBookingLength}</span>
+                </span>
+                </li>
+                
                 <li className="flex gap-3 items-center">
                 <UsersIcon className="h-5 w-5 text-primary-600" />
                 <span className="text-lg">
