@@ -121,8 +121,6 @@ export async function createBooking(bookingData, formData){
         isPaid: false
     }
 
-    console.log(newBooking)
-
     const { data, error } = await supabase
     .from('bookings')
     .insert([newBooking])
@@ -136,7 +134,7 @@ export async function createBooking(bookingData, formData){
     }
 
     revalidatePath(`/cabins/${bookingData.cabinId}`)
-    redirect("/cabins/thankyou")
+    //redirect("/cabins/thankyou")
     //return data;
 }
 

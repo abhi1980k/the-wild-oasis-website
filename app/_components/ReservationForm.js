@@ -4,7 +4,7 @@ import { differenceInDays } from "date-fns";
 import { useReservation } from "./ReservationContext";
 import { createBooking } from "../_lib/actions";
 import SubmitButton from "./SubmitButton";
-import Image from "next/image";
+import { redirect } from "next/navigation";
 
 function ReservationForm({ cabin, user }) {
   const { range, resetRange } = useReservation()
@@ -26,7 +26,7 @@ function ReservationForm({ cabin, user }) {
         <p>Logged in as</p>
 
         <div className='flex gap-4 items-center'>
-          <Image
+          <img
             // Important to display google profile images
             referrerPolicy='no-referrer'
             className='h-8 rounded-full'
@@ -39,7 +39,9 @@ function ReservationForm({ cabin, user }) {
 
       <form action={async (formData)=> {
         await createBookingWithData(formData)
-        resetRange()
+        await resetRange()
+        //revalidatePath(`/cabins/${bookingData.cabinId}`)
+        redirect("/cabins/thankyou")
       }}
         className='bg-primary-900 py-10 px-16 text-lg flex gap-5 flex-col'>
         <div className='space-y-2'>
